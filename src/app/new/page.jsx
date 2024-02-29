@@ -20,7 +20,7 @@ function NewPage({params}){
 
     const onSubmit = async (e)=>{
         e.preventDefault()
-
+        
         if(params.id){
             const res = await fetch(`/api/tasks/${params.id}`, {
                 method: 'PUT',
@@ -66,11 +66,12 @@ function NewPage({params}){
                     router.refresh()
                     router.push('/')
                 }}
+                disabled={title.trim() === '' || description.trim() === ''}
                 >
                     Aceptar
                 </button>
                 {params.id &&
-                <button className="bg-red-500 hover:bg-red-700 rounded-md text-white p-2"
+                <button type="button" className="bg-red-500 hover:bg-red-700 rounded-md text-white p-2"
                 onClick={async () => {
                     const res = await fetch(`/api/tasks/${params.id}`, {
                         method: 'DELETE',
