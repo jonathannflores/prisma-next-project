@@ -10,7 +10,7 @@ async function HomePage(){
 
   return(
     <section className="container mx-auto">
-      <div className="grid grid-cols-3 gap-3 mt-10">
+      <div className="grid grid-cols-3 gap-3 mt-10 mx-20">
         {tasks.map((task)=>(
           <TaskCard task={task} key={task.id} />
         ))}

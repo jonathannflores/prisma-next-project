@@ -50,7 +50,7 @@ function NewPage({params}){
     return <div className="h-screen flex justify-center items-center">
         <form className="bg-slate-800 p-10 w-1/2" onSubmit={onSubmit}>
             <label htmlFor="title" className="mb-2 text-white">Titulo</label>
-            <input type="text" placeholder="titulo" id="title" className="w-full p-2"
+            <input type="text" placeholder="titulo" id="title" className="w-full p-2 mb-4"
                 onChange={(e) => setTitle(e.target.value)}
                 value={title}
             />
@@ -60,7 +60,32 @@ function NewPage({params}){
                 onChange={(e) => setDescription(e.target.value)}
                 value={description}
             ></textarea>
-            <button className="bg-blue-400 rounded-md text-white p-2">Aceptar</button>
+            <div className="flex justify-between mt-4">
+                <button type="submit" className="bg-blue-500 hover:bg-blue-700 rounded-md text-white p-2"
+                onClick={()=>{
+                    router.refresh()
+                    router.push('/')
+                }}
+                >
+                    Aceptar
+                </button>
+                {params.id &&
+                <button className="bg-red-500 hover:bg-red-700 rounded-md text-white p-2"
+                onClick={async () => {
+                    const res = await fetch(`/api/tasks/${params.id}`, {
+                        method: 'DELETE',
+                    })
+                    const data = await res.json()
+                    console.log(data)
+                    router.refresh()
+                    router.push('/')
+                }}
+                >
+                    Delete
+                </button>
+                }
+
+            </div>
         </form>
     </div>
 }
